@@ -7,34 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "fristViewController.h"
-#import "twoViewController.h"
-#import "threeViewController.h"
-#import "fourViewController.h"
-@class MCTabBarItem;
+#import "MCTabBarItem.h"
+
+@class QQTabBarController;
+
+@protocol QQTabBarControllerDelegate <NSObject>
+
+@optional
+- (void)clickBigItem;
+
+- (void)QQTabBarController:(QQTabBarController *)tab didSelectdIndex:(NSInteger)index;
+
+@end
+
 @interface QQTabBarController : UITabBarController
-@property (nonatomic,strong) UIView *tabBarView;
-@property (nonatomic,assign) NSInteger SelectIndex;//选中的下标
 
-@property (nonatomic,strong) fristViewController *one;
-@property (nonatomic,strong) twoViewController *two;
-@property (nonatomic,strong) threeViewController *three;
-@property (nonatomic,strong) fourViewController *four;
+- (instancetype)initTabWithItems:(NSArray<MCTabBarItem *> *)items navClass:(Class)navClass;
 
-/**第一个item*/
-@property (nonatomic,strong) MCTabBarItem *item0;
-/**第二个item*/
-@property (nonatomic,strong) MCTabBarItem *item1;
-/**第三个item*/
-@property (nonatomic,strong) MCTabBarItem *item2;
-/**第四个item*/
-@property (nonatomic,strong) MCTabBarItem *item3;
+/**代理*/
+@property (nonatomic , assign) id<QQTabBarControllerDelegate>  customDelegate;
+/**字体*/
+@property (nonatomic , strong) UIFont * font;
+/**默认字体颜色*/
+@property (nonatomic,strong) UIColor * defaultColor;
+/**选中字体颜色*/
+@property (nonatomic,strong) UIColor * selectedColor;
 /**
  修改选中的下标
-
  @param index 下标
  */
 - (void)setTabIndex:(NSInteger)index;
-
 @end
 

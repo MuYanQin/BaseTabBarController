@@ -8,7 +8,9 @@
 
 #import "MCTabBarItem.h"
 #import "UIView+QQFrame.h"
+
 #define btnWidth self.bounds.size.width
+
 static const CGFloat imageHeight = 24;
 static const CGFloat imageWidth = imageHeight*1.14;
 @interface MCTabBarItem()
@@ -21,7 +23,7 @@ static const CGFloat imageWidth = imageHeight*1.14;
 {
     self = [super initWithFrame:frame];
     if (self != nil) {
-        
+        _Badge = -1;
     }
     return self;
 }
@@ -32,83 +34,70 @@ static const CGFloat imageWidth = imageHeight*1.14;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
-    dictM[NSFontAttributeName] = self.titleLabel.font;
-    CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
     CGFloat imageX = (btnWidth - imageWidth) * 0.5;
-    self.imageView.frame = CGRectMake(imageX, 6, imageWidth, imageHeight);
-    self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, self.imageView.bottom +8, btnWidth, 14);
-    CGPoint labelCenter = self.titleLabel.center;
-    labelCenter.x = self.imageView.center.x;
-    self.titleLabel.center = labelCenter;
-    
-    if (_isHasBackGroudImageview) {
-        self.BackGroudImageview.frame = self.imageView.frame;
-        self.BackGroudImageview.size = CGSizeMake(self.imageView.width *0.9, self.imageView.height *0.9);
-        self.BackGroudImageview.center = self.imageView.center;
-        [self addSubview:self.BackGroudImageview];
-        [self sendSubviewToBack:self.BackGroudImageview];
+    if (self.imgSize.width>0) {
+        self.imageView.frame = CGRectMake(imageX, 5, self.imgSize.width, self.imgSize.height);
+    }else{
+        self.imageView.frame = CGRectMake(imageX, 5, imageWidth, imageHeight);
     }
+    CGFloat margin = 0;
+    if (self.margin>0) {
+        margin = self.margin;
+    }else{
+        margin = 3;
+    }
+    self.titleLabel.frame = CGRectMake(0, self.imageView.bottom + margin, btnWidth, self.titleLabel.frame.size.height);
+    [self caculate:_Badge];
 }
 - (void)setBadge:(NSInteger)Badge
 {
     _Badge = Badge;
-    if(Badge < 0){
+}
+- (void)caculate:(NSInteger)count
+{
+    if(count < 0){
         self.BadgeLb.hidden = YES;
         return;
     }
-    NSString *badge = [NSString string];
-    if (Badge > 999) {
+    NSString *badge = nil;
+    if (count > 999) {
         badge = @"999+";
     }else{
-        badge = [NSString stringWithFormat:@"%lu",(long)Badge];
+        badge = [NSString stringWithFormat:@"%lu",(long)count];
     }
     self.BadgeLb.text = badge;
     [self.BadgeLb sizeToFit];
-    if (Badge == 0) {
-        self.BadgeLb.text = @"";
-        self.BadgeLb.frame = CGRectMake(self.imageView.frame.origin.x + 24, 5, 10, 10);
+    CGFloat badgeLbx = self.imageView.frame.origin.x +  self.imageView.frame.size.width - self.BadgeLb.frame.size.width/2;
+    CGFloat badgeLby = self.imageView.frame.origin.y ;
+    if (count <=9) {
+        if (count ==0) {
+            self.BadgeLb.text = @"";
+            self.BadgeLb.frame = CGRectMake(badgeLbx, badgeLby, 10, 10);
+        }else{
+            self.BadgeLb.frame = CGRectMake(badgeLbx, badgeLby, 14, self.BadgeLb.frame.size.height);
+        }
     }else{
-        self.BadgeLb.frame = CGRectMake(self.imageView.frame.origin.x + 24, 5, self.BadgeLb.frame.size.width + 5, 15);
+        self.BadgeLb.frame = CGRectMake(badgeLbx, badgeLby, self.BadgeLb.frame.size.width + 5, self.BadgeLb.frame.size.height);
     }
-    
     self.BadgeLb.layer.cornerRadius = self.BadgeLb.frame.size.height/2;
     self.BadgeLb.layer.masksToBounds = YES;
     [self addSubview:self.BadgeLb];
     
 }
-- (void)setBackGroudImageName:(NSString *)BackGroudImageName
-{
-    _BackGroudImageName = BackGroudImageName;
-    if (BackGroudImageName.length <= 0) {
-        self.BackGroudImageview.image = nil;
-        self.BackGroudImageview.hidden = YES;
-    }else{
-        self.BackGroudImageview.hidden = NO;
-        self.BackGroudImageview.image =  [UIImage imageNamed:_BackGroudImageName];
-        
-        CABasicAnimation * animation = [CABasicAnimation animation];
-        animation.keyPath = @"transform.scale";//KVC的方式来访问属性
-        animation.fromValue = @0.0;
-        animation.toValue = @1.0;
-        animation.duration = 0.15;//持续时间
-        animation.repeatCount = 1;//无限循环
-        animation.speed = 1;//速度
-        //    animation.repeatDuration = 10;//在多久哪动画有效
-        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];//结束函数
-        animation.autoreverses= NO;//回归是否是动画形式
-        [self.BackGroudImageview.layer addAnimation:animation forKey:@"frame"];//添加动画
-        
-    }
-}
-- (void)setIsHasBackGroudImageview:(BOOL)isHasBackGroudImageview
-{
-    _isHasBackGroudImageview = isHasBackGroudImageview;
-    if (isHasBackGroudImageview) {
-        [self setNeedsLayout];
-    }
-    
-}
+/**
+ CABasicAnimation * animation = [CABasicAnimation animation];
+ animation.keyPath = @"transform.scale";//KVC的方式来访问属性
+ animation.fromValue = @0.0;
+ animation.toValue = @1.0;
+ animation.duration = 0.15;//持续时间
+ animation.repeatCount = 1;//无限循环
+ animation.speed = 1;//速度
+ //    animation.repeatDuration = 10;//在多久哪动画有效
+ animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];//结束函数
+ animation.autoreverses= NO;//回归是否是动画形式
+ [self.BackGroudImageview.layer addAnimation:animation forKey:@"frame"];//添加动画
+ */
+
 - (void)setBadgeBackColor:(UIColor *)BadgeBackColor
 {
     _BadgeBackColor = BadgeBackColor;
@@ -129,12 +118,5 @@ static const CGFloat imageWidth = imageHeight*1.14;
         _BadgeLb.textAlignment = NSTextAlignmentCenter;
     }
     return _BadgeLb;
-}
-- (UIImageView *)BackGroudImageview
-{
-    if (!_BackGroudImageview) {
-        _BackGroudImageview = [[UIImageView alloc]init];
-    }
-    return _BackGroudImageview;
 }
 @end

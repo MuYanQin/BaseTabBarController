@@ -7,8 +7,12 @@
 //
 
 #import "AppDelegate.h"
-
-@interface AppDelegate ()
+#import "fristViewController.h"
+#import "twoViewController.h"
+#import "threeViewController.h"
+#import "fourViewController.h"
+#import "fivewViewController.h"
+@interface AppDelegate ()<QQTabBarControllerDelegate>
 
 @end
 
@@ -18,17 +22,63 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window.rootViewController = self.TabBar;
-    
+
     [self.window makeKeyAndVisible];
     return YES;
 }
 
 - (QQTabBarController *)TabBar
 {
-    if (!_TabBar) {
-        _TabBar = [[QQTabBarController alloc]init];
-    }
-    return _TabBar;
+        if (!_TabBar) {
+            
+            MCTabBarItem * item0 = [MCTabBarItem buttonWithType:UIButtonTypeCustom];
+            item0.vc = [fristViewController   new];
+            item0.text = @"首页";
+            item0.Badge = 30;
+            item0.defaultImg = [UIImage imageNamed:@"navigation_home_defaut"];
+            item0.selectedImg = [UIImage imageNamed:@"navigation_home_active"];
+            
+            MCTabBarItem * item1 =[MCTabBarItem buttonWithType:UIButtonTypeCustom];
+            item1.text = @"赏金";
+            item1.Badge = 9;
+            item1.vc = [twoViewController new];
+            item1.defaultImg = [UIImage imageNamed:@"navigation_Finding_car_defaut"];
+            item1.selectedImg = [UIImage imageNamed:@"navigation_Finding_car_active"];
+            
+            MCTabBarItem * item2 =[MCTabBarItem  buttonWithType:UIButtonTypeCustom];
+            //不传就是一个单纯的按钮
+            item2.vc = [fivewViewController new];
+            item2.text = @"大Button";
+            item2.isBigItem = YES;
+            item2.bigItemSize = CGSizeMake(60, 60);
+            item2.defaultImg = [UIImage imageNamed:@"tab_launch"];
+            item2.selectedImg = [UIImage imageNamed:@"tab_launch"];
+            
+            MCTabBarItem * item3 =[MCTabBarItem buttonWithType:UIButtonTypeCustom];
+            item3.vc = [threeViewController new];
+            item3.text = @"实名";
+            item3.Badge = 100;
+            item3.defaultImg = [UIImage imageNamed:@"navigation_home_defaut"];
+            item3.selectedImg = [UIImage imageNamed:@"navigation_home_active"];
+            
+            MCTabBarItem * item4 =[MCTabBarItem buttonWithType:UIButtonTypeCustom];
+            item4.vc = [fourViewController   new];
+            item4.text = @"我的";
+            item4.defaultImg = [UIImage imageNamed:@"navigation_mine_defaut"];
+            item4.selectedImg = [UIImage imageNamed:@"navigation_mine_active"];
+            
+            _TabBar = [[QQTabBarController alloc]initTabWithItems:@[item0,item1,item2,item3,item4] navClass:[UINavigationController class]];
+            _TabBar.customDelegate   = self;
+            _TabBar.defaultColor = [UIColor redColor];
+            _TabBar.selectedColor = [UIColor purpleColor];
+            _TabBar.font = [UIFont systemFontOfSize:10 weight:(UIFontWeightRegular)];
+        }
+        return _TabBar;
+}
+
+- (void)QQTabBarController:(QQTabBarController *)tab didSelectdIndex:(NSInteger)index
+{
+    
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

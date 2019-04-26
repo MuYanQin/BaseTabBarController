@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		427D1FBB2272A03C0081114E /* UITabBar+MCBigItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 427D1FB82272A03C0081114E /* UITabBar+MCBigItem.m */; };
+		427D1FBC2272A03C0081114E /* tab_launch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 427D1FB92272A03C0081114E /* tab_launch@2x.png */; };
+		427D1FBF2272A26B0081114E /* fivewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427D1FBE2272A26B0081114E /* fivewViewController.m */; };
 		4B52970D20E5DF58008E452D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B52970C20E5DF58008E452D /* AppDelegate.m */; };
 		4B52971320E5DF58008E452D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B52971120E5DF58008E452D /* Main.storyboard */; };
 		4B52971520E5DF5A008E452D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B52971420E5DF5A008E452D /* Assets.xcassets */; };
@@ -41,6 +44,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		427D1FB82272A03C0081114E /* UITabBar+MCBigItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+MCBigItem.m"; sourceTree = "<group>"; };
+		427D1FB92272A03C0081114E /* tab_launch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_launch@2x.png"; sourceTree = "<group>"; };
+		427D1FBA2272A03C0081114E /* UITabBar+MCBigItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+MCBigItem.h"; sourceTree = "<group>"; };
+		427D1FBD2272A26B0081114E /* fivewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fivewViewController.h; sourceTree = "<group>"; };
+		427D1FBE2272A26B0081114E /* fivewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fivewViewController.m; sourceTree = "<group>"; };
 		4B52970820E5DF58008E452D /* QQTabBarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QQTabBarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B52970B20E5DF58008E452D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4B52970C20E5DF58008E452D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -129,6 +137,8 @@
 				4B52974420E5E010008E452D /* threeViewController.m */,
 				4B52974B20E5E01B008E452D /* fourViewController.h */,
 				4B52974A20E5E01B008E452D /* fourViewController.m */,
+				427D1FBD2272A26B0081114E /* fivewViewController.h */,
+				427D1FBE2272A26B0081114E /* fivewViewController.m */,
 				4B52973D20E5DF85008E452D /* BaseTabBarController */,
 				4B52971120E5DF58008E452D /* Main.storyboard */,
 				4B52971420E5DF5A008E452D /* Assets.xcassets */,
@@ -160,6 +170,9 @@
 		4B52973D20E5DF85008E452D /* BaseTabBarController */ = {
 			isa = PBXGroup;
 			children = (
+				427D1FB92272A03C0081114E /* tab_launch@2x.png */,
+				427D1FBA2272A03C0081114E /* UITabBar+MCBigItem.h */,
+				427D1FB82272A03C0081114E /* UITabBar+MCBigItem.m */,
 				4B52973F20E5DF85008E452D /* QQTabBarController.h */,
 				4B52974120E5DF85008E452D /* QQTabBarController.m */,
 				4B52973E20E5DF85008E452D /* MCTabBarItem.h */,
@@ -276,6 +289,7 @@
 				4B52971820E5DF5A008E452D /* LaunchScreen.storyboard in Resources */,
 				4B52971520E5DF5A008E452D /* Assets.xcassets in Resources */,
 				4B52971320E5DF58008E452D /* Main.storyboard in Resources */,
+				427D1FBC2272A03C0081114E /* tab_launch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +318,9 @@
 				4B52974C20E5E01B008E452D /* fourViewController.m in Sources */,
 				4B52975220E5E156008E452D /* UIView+QQFrame.m in Sources */,
 				4B52971B20E5DF5A008E452D /* main.m in Sources */,
+				427D1FBF2272A26B0081114E /* fivewViewController.m in Sources */,
 				4B52974820E5E010008E452D /* threeViewController.m in Sources */,
+				427D1FBB2272A03C0081114E /* UITabBar+MCBigItem.m in Sources */,
 				4B52974320E5DF85008E452D /* QQTabBarController.m in Sources */,
 				4B52970D20E5DF58008E452D /* AppDelegate.m in Sources */,
 				4B52974920E5E010008E452D /* twoViewController.m in Sources */,
